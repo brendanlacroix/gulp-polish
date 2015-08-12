@@ -19,21 +19,22 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.0",
-    "glob": "^5.0.14",
     "gulp-util": "^3.0.6",
     "kew": "^0.6.0",
     "lodash": "^3.10.1",
     "log-symbols": "^1.0.2",
     "postcss": "^4.1.16",
+    "postcss-advanced-variables": "0.0.4",
     "postcss-conditionals": "^1.2.0",
-    "postcss-each": "^0.6.0",
     "postcss-for": "^1.1.0",
-    "postcss-mixins": "^0.4.0",
+    "postcss-inline-comment": "^1.0.5",
     "postcss-nested": "^0.3.2",
+    "postcss-sass-extend": "0.0.1",
+    "postcss-sassy-mixins": "^1.0.0",
     "postcss-simple-extend": "^0.3.2",
-    "postcss-simple-vars": "^0.3.0",
     "require-dir": "^0.3.0",
     "text-table": "^0.2.0",
     "through2": "^2.0.0"
-  }
+  },
+  "devDependencies": {}
 }

@@ -141,6 +141,8 @@ to figure out how to navigate the object.
 
 ## Todo
 - Tests!
+- Sass-style `@for` loops don't appear to work exactly correctly, and definitely not while inside
+  of `@include`s. Might need to write a new PostCSS plugin to handle this.
 
   
 ## License
