@@ -6,7 +6,6 @@ Enforce CSS rules as you see fit!
 ## Install
 `npm install --save gulp-polish`
 
-  
 
 ## Gulp task
 ```
