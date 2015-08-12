@@ -34,7 +34,6 @@
     "postcss-simple-vars": "^0.3.0",
     "require-dir": "^0.3.0",
     "text-table": "^0.2.0",
-    "through2": "^2.0.0",
-    "walkdir": "0.0.10"
+    "through2": "^2.0.0"
   }
 }
