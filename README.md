@@ -143,7 +143,9 @@ to figure out how to navigate the object.
 - Tests!
 - Sass-style `@for` loops don't appear to work exactly correctly, and definitely not while inside
   of `@include`s. Might need to write a new PostCSS plugin to handle this.
-
+- SCSS-style variable string interpolation fails PostCSS.
+- Inline comments work 50% of the time. Need to fix that PostCSS plugin or make sure it doesn't error
+- Sass `@each` doesn't work inside of `@if`
   
 ## License
 
