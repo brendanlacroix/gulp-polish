@@ -4,9 +4,10 @@ var _           = require('lodash');
 var gutil       = require('gulp-util');
 var PluginError = gutil.PluginError;
 
-var polish   = require('./lib/polish');
-var reporter = require('./lib/polish-error-reporter');
-var getRules = require('./lib/polish-get-rules');
+var polish     = require('./lib/polish');
+var reporter   = require('./lib/polish-error-reporter');
+var getRules   = require('./lib/polish-get-rules');
+var astHelpers = require('./lib/polish-ast-helpers');
 
 var PLUGIN_NAME = 'gulp-polish';
 
@@ -24,12 +25,13 @@ function gulpPolish (options){
       return cb(null, file);
     }
 
-    polish(file, rules).then(function(file){
-      return cb(null, file);
-    });
+    polish(file, rules);
+    
+    return cb(null, file);
   });
 }
 
-gulpPolish.reporter = reporter;
+gulpPolish.reporter   = reporter;
+gulpPolish.astHelpers = astHelpers;
 
 module.exports = gulpPolish;

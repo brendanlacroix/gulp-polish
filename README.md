@@ -29,45 +29,75 @@ if you want to just use the default, pipe it through `polish.reporter()` as well
 
 CSS-level rules:
 ```
-// Anything you want to include for rule-writing.
 var _ = require('lodash');
 
-// Error message to display when this rule isn't followed
-module.exports.message = 'Classes beginning with `.js-` should not be styled. Only use them as Javascript hooks.';
+module.exports.message = 'Border should not be set explicitly. Use the @include border mixin.';
 
-// Test that returns errors in an array.
-module.exports.test = function(stylesheet, file){
-  var rules = _.where(stylesheet.cssDOM.nodes, { type: 'rule' }),
-      errors = [];
+module.exports.test = function(file){
+  var errors = [],
+      rules = [];
+
+  file.cssDOM.traverseByType('ruleset', function(rule){
+    rules.push(rule);
+  });
 
   _.each(rules, function(rule){
-    if (rule.selector.indexOf('.js-') !== -1){
-      errors.push(rule);
-    }
+    rule.forEach('block', function (block){
+      block.forEach('declaration', function (declaration){
+        declaration.forEach('property', function (property){
+          var ident = property.contains('ident') && property.first('ident');
+
+          if (ident.content === 'border') {
+            errors.push(rule);
+          }
+        });
+      });
+    });
   });
 
   return errors;
-}
+};
 ```
 
 File-level rules:
 ```
-var _ = require('lodash');
+var _         = require('lodash');
+var pluralize = require('pluralize');
 
-module.exports.message = 'Stylesheets should be named to match their top-level rule.';
+var polish     = require('gulp-polish');
+var astHelpers = polish.astHelpers;
+
+module.exports.message = function(string){
+  return 'Stylesheets should be named to match their top-level rule. Expected filename to match "' + string + '".';
+};
 
 module.exports.test = function(file){
-  var filename = file.name,
-      rules = _.where(file.cssDOM.nodes, { type: 'rule' }),
-      errors = [];
+  var filename = file.name.trim(),
+      rule     = file.cssDOM.contains('ruleset') && file.cssDOM.first('ruleset'),
+      errors   = [],
+      className,
+      pluralClassName,
+      pluralFilename;
+
+  if (!rule) {
+    return errors;
+  }
+
+  className = astHelpers.getSelector(rule);
 
   filename = filename.indexOf('_') === 0 ? filename.replace('_','') : filename;
-  filename = filename.replace('_','-');
+  filename = filename.replace(/_/g,'-');
+  filename = filename.replace(' ','-');
   filename = '.' + filename;
 
-  // If the test doesn't pass, push the whole file instead of a node
-  if (filename !== rules[0].selector) {
-    errors.push(file);
+  pluralFilename  = pluralize(filename);
+  pluralClassName = pluralize(className);
+
+  if (pluralFilename !== pluralClassName) {
+    errors.push({
+      file: file,
+      message: className
+    });
   }
 
   return errors;
@@ -76,11 +106,21 @@ module.exports.test = function(file){
 
 All rules need to export both a `message` and a `test`.
 
+`message` can be either a string or a function. The function will be called with the entire error object.
+
 Whatever you push into the `errors` array is stored on the result in the `data` object. If you push a 
 rule (or any node from the CSS DOM), the line and column numbers will be reported for any broken rules.
 
-If you want to report a broken rule for the whole file (say, your filename breaks conventions), 
-push the passed in `stylesheet` argument to the `errors` array instead.
+If you want to report a broken rule for the whole file (say, your filename breaks conventions), push an object
+in the format:
+```
+{
+  file: file,
+  message: 'some message'
+}
+```
+(That `message` key is useful for passing something to the `message` function).
+
 
 The `file` argument passed into `test()` is an object: 
 ```
@@ -90,9 +130,8 @@ file = {
 }
 ``` 
 
-Where cssDOM is the parsed CSS file returned by PostCSS. 
-See PostCSS's [documentation](https://github.com/postcss/postcss/blob/43ae5e3338b8c9a7de7ba0cda586db5e9f83b35b/docs/api.md) 
-to figure out how to navigate the object for use in your tests.
+`file.polish.results.data` is a JSON AST returned by [gonzales-pe](https://github.com/tonyganch/gonzales-pe/tree/dev#astmapfunction). 
+See gonzales-pe's documentation to figure out how to navigate the object.
 
   
 ## Options
@@ -118,34 +157,17 @@ file.polish.results = [{
       name: 'rule-name',
         message: 'Do not break this rule!'
     },
-    data: { 
-      nodes: {...},
-        type: 'rule',
-        parent: {...},
-        source: {...},
-        before: '\n\n',
-        between: ' ',
-        selector: '.some-selector-that-broke-the-rules',
-        semicolon: true,
-        after: '\n',
-        lastEach: 9,
-        indexes: {} 
-  }
+    data: { ... }
 }];
 ```
 
-`file.polish.results.data` is a node returned by PostCSS. 
-See PostCSS's [documentation](https://github.com/postcss/postcss/blob/43ae5e3338b8c9a7de7ba0cda586db5e9f83b35b/docs/api.md) 
-to figure out how to navigate the object.
+`file.polish.results.data` is a JSON AST returned by [gonzales-pe](https://github.com/tonyganch/gonzales-pe/tree/dev#astmapfunction). 
+See gonzales-pe's documentation to figure out how to navigate the object.
 
 
 ## Todo
 - Tests!
-- Sass-style `@for` loops don't appear to work exactly correctly, and definitely not while inside
-  of `@include`s. Might need to write a new PostCSS plugin to handle this.
-- SCSS-style variable string interpolation fails PostCSS.
 - Inline comments work 50% of the time. Need to fix that PostCSS plugin or make sure it doesn't error
-- Sass `@each` doesn't work inside of `@if`
   
 ## License
 
