@@ -83,7 +83,7 @@ module.exports.test = function(file){
     return errors;
   }
 
-  className = astHelpers.getSelector(rule);
+  className = astHelpers.getConcatSelector(rule);
 
   filename = filename.indexOf('_') === 0 ? filename.replace('_','') : filename;
   filename = filename.replace(/_/g,'-');
