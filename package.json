@@ -1,6 +1,6 @@
 {
   "name": "gulp-polish",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Enforce CSS rules as you see fit!",
   "main": "index.js",
   "scripts": {
