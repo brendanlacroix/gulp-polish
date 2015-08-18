@@ -1,6 +1,6 @@
 # gulp-polish
 
-Enforce CSS rules as you see fit!
+Make your stylesheets perfect. Add an extra coat of polish.
 
   
 ## Install
