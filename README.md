@@ -206,13 +206,30 @@ module.exports = {
   
 ## Configuring rules
 
-To configure which rules are applied on a per-directory basis, use `.polish.json` files. The config will inherit from its parents directories. Just create a simple JSON object that specifies rules to include/exclude by filename.
+To configure which rules are applied on a per-directory basis, use `.polish.json` files. 
+The config will inherit from its parents directories. Just create a simple JSON object 
+that specifies rules to include/exclude by filename.
 
 ```
 {
   "no-js-styles": false,
   "no-styling-elements": false
 }
+```
+
+If a certain file needs to me configured differently from its directory, add a 
+`fileConfigs` key to your `.polish.json` with a config object for that file:
+
+```
+{
+  "dont-add-typographic-styles": true,
+  "fileConfigs": {
+    "_typography": {
+      "dont-add-typographic-styles": false
+    }
+  }
+}
+
 ```
 
 
