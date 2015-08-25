@@ -4,15 +4,14 @@ Make your stylesheets perfect. Add an extra coat of polish.
 
 # Overview
 
-Every engineer and every company has a different idea of what good stylesheets look like. Beauty's subjective.
-So stop letting someone else write your linter. Make up your own rules.
-
-With gulp-polish, you can! 
-
-Spend less time reviewing pull requests. Make learning your rules simpler for new additions to the team. Keep
-your code more consistent and more reliable... 
+Spend less time reviewing pull requests.  
+Make learning your rules simpler for new additions to the team.  
+Keep your code more consistent and more reliable...  
 
 Or don't. You're the boss.
+
+Play by your own rules with gulp-polish.
+
 
 _gulp-polish works with CSS, SCSS, Sass, and Less._
 
