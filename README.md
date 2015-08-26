@@ -30,7 +30,9 @@ gulp.task('polish', function() {
     .pipe(polish({
       rulesDirectory: './rules'    // Path to your rules directory
     }))
-    .pipe(polish.reporter());
+    .pipe(polish.reporter({
+      reportTotal: true            // Print the total number of warnings after all files are processed
+    }));
 });
 ```
 
