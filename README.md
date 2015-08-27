@@ -230,6 +230,7 @@ If a certain file needs to me configured differently from its directory, add a
     }
   }
 }
+```
 
 If you want to disable a particular rule in a file, you can do an inline config that will apply only
 to the next rule in the sheet:
