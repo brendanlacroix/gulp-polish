@@ -7,26 +7,38 @@ var PluginError = gutil.PluginError;
 var polish     = require('./lib/polish');
 var reporter   = require('./lib/polish-error-reporter');
 var getRules   = require('./lib/polish-get-rules');
+var getPlugins = require('./lib/polish-get-plugins');
 var astHelpers = require('./lib/polish-ast-helpers');
 
 var PLUGIN_NAME = 'gulp-polish';
 
 function gulpPolish (options){
-  if (!options || !options.rulesDirectory || typeof options.rulesDirectory !== 'string'){
-    throw new PluginError(PLUGIN_NAME, 'Rules directory not specified.');
+  var usePlugins = options.plugins && Array.isArray(options.plugins),
+      useFiles = options.rulesDirectory && typeof options.rulesDirectory === 'string';
+
+  if (!options || !(usePlugins || useFiles)) {
+    throw new PluginError(PLUGIN_NAME, 'No rules were specified.');
   }
 
-  var rules = getRules(options.rulesDirectory);
+  var rules = {};
+
+  if (useFiles) {
+    _.extend(rules, getRules(options.rulesDirectory));
+  }
+
+  if (usePlugins) {
+    _.extend(rules, getPlugins(options.plugins));
+  }
 
   return through.obj(function(file, enc, cb) {
     var stream = this;
 
-    if (!file.isBuffer()) {
+    if (!file.isBuffer() || Object.keys(rules).length === 0) {
       return cb(null, file);
     }
 
     polish(file, rules);
-    
+
     return cb(null, file);
   });
 }
