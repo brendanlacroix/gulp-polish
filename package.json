@@ -1,6 +1,6 @@
 {
   "name": "gulp-polish",
-  "version": "2.4.2",
+  "version": "3.0.0",
   "description": "Make your stylesheets perfect. Add an extra coat of polish.",
   "main": "index.js",
   "scripts": {
@@ -19,12 +19,9 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.0",
-    "gonzales-pe": "git://github.com/brendanlacroix/gonzales-pe.git",
     "gulp-util": "^3.0.6",
-    "lodash": "^3.10.1",
     "log-symbols": "^1.0.2",
-    "require-dir": "^0.3.0",
-    "text-table": "^0.2.0",
+    "polish-css": "^1.0.0",
     "through2": "^2.0.0"
   },
   "devDependencies": {}

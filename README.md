@@ -4,9 +4,9 @@ Make your stylesheets perfect. Add an extra coat of polish.
 
 # Overview
 
-Spend less time reviewing pull requests.  
-Make learning your rules simpler for new additions to the team.  
-Keep your code more consistent and more reliable...  
+Spend less time reviewing pull requests.
+Make learning your rules simpler for new additions to the team.
+Keep your code more consistent and more reliable...
 
 Or don't. You're the boss.
 
@@ -15,7 +15,7 @@ Play by your own rules with gulp-polish.
 
 _gulp-polish works with CSS, SCSS, Sass, and Less._
 
-  
+
 ## Install
 `npm install --save gulp-polish`
 
@@ -36,7 +36,7 @@ gulp.task('polish', function() {
 });
 ```
 
-You can write your own reporter (check out the Results section below), but if you want to just use the 
+You can write your own reporter (check out the Results section below), but if you want to just use the
 default (which prints to the console), pipe it through `polish.reporter()` as well.
 
 
@@ -81,16 +81,16 @@ Rules must export both a `message` and a `test`.
 ```
 {
   name: 'your-stylesheet',
-  cssDOM: { ... }
+  ast: { ... }
 }
 ```
 
 You can return failures from your rule in one of two formats. The object you create will be stored on the error under the `data` key (see Results).
 
-- **AST node-level failure** 
-  
+- **AST node-level failure**
+
   If you have found an issue with one of the AST nodes, make an object and shove that     node under a `rule` key.
-  
+
   ```
   {
     rule: { ... },
@@ -99,16 +99,16 @@ You can return failures from your rule in one of two formats. The object you cre
                      // message function, should choose to use it.
   }
   ```
-  
-  If you push this object to `test`'s returned array, it will be printed with a line  
+
+  If you push this object to `test`'s returned array, it will be printed with a line
   and column number for where that node starts.
-  
-  
-- **File-level failure** 
-  
-  If you have found an issue with the whole file, make an object and shove the `file`    
+
+
+- **File-level failure**
+
+  If you have found an issue with the whole file, make an object and shove the `file`
   argument passed into your test function under a `file` key.
-  
+
   ```
   {
     file: file,
@@ -117,10 +117,10 @@ You can return failures from your rule in one of two formats. The object you cre
                      // message function, should choose to use it.
   }
   ```
-  
-  If you push this object to `test`'s returned array, it'll report without line and 
+
+  If you push this object to `test`'s returned array, it'll report without line and
   column numbers and simply say "File warning: " before your error message.
-  
+
 
 ## Sample rules
 
@@ -135,7 +135,7 @@ module.exports = {
   test: function(file){
     var errors = [];
 
-    file.cssDOM.traverseByType('ruleset', function(rule){
+    file.ast.traverseByType('ruleset', function(rule){
       rule.forEach('block', function (block){
         block.forEach('declaration', function (declaration){
           declaration.forEach('property', function (property){
@@ -144,7 +144,7 @@ module.exports = {
             if (ident.content !== 'border') {
               return;
             }
-            
+
             errors.push({
               rule: rule
             });
@@ -158,7 +158,7 @@ module.exports = {
 };
 ```
 
-**File-level failure** 
+**File-level failure**
 ```
 var _          = require('lodash');
 var pluralize  = require('pluralize');
@@ -171,7 +171,7 @@ module.exports = {
   },
   test: function(file){
     var filename = file.name.trim(),
-        rule     = file.cssDOM.contains('ruleset') && file.cssDOM.first('ruleset'),
+        rule     = file.ast.contains('ruleset') && file.ast.first('ruleset'),
         errors   = [],
         className,
         pluralClassName,
@@ -204,11 +204,11 @@ module.exports = {
 ```
 
 
-  
+
 ## Configuring rules
 
-To configure which rules are applied on a per-directory basis, use `.polish.json` files. 
-The config will inherit from its parents directories. Just create a simple JSON object 
+To configure which rules are applied on a per-directory basis, use `.polish.json` files.
+The config will inherit from its parents directories. Just create a simple JSON object
 that specifies rules to include/exclude by filename.
 
 ```
@@ -218,7 +218,7 @@ that specifies rules to include/exclude by filename.
 }
 ```
 
-If a certain file needs to me configured differently from its directory, add a 
+If a certain file needs to me configured differently from its directory, add a
 `fileConfigs` key to your `.polish.json` with a config object for that file:
 
 ```
@@ -238,12 +238,12 @@ to the next rule in the sheet:
 ```
 /* polish dont-add-typographic-styles=false no-js-styles=false */
 ```
-  
+
 
 
 ## Todo
 - Tests!
-  
+
 ## License
 
 The MIT License (MIT)
