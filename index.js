@@ -21,12 +21,12 @@ function gulpPolish (options){
   return through.obj(function(file, enc, cb) {
     var stream = this;
 
-    if (!file.isBuffer()) {
+    if (!file.isBuffer() || file.contents.toString('utf8').length === 0) {
       return cb(null, file);
     }
 
     polish(file, rules);
-    
+
     return cb(null, file);
   });
 }
