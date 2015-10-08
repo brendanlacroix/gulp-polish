@@ -1,49 +1,69 @@
-var through     = require('through2');
-var path        = require('path');
-var _           = require('lodash');
 var gutil       = require('gulp-util');
 var PluginError = gutil.PluginError;
 
-var polish     = require('./lib/polish');
-var reporter   = require('./lib/polish-error-reporter');
-var getRules   = require('./lib/polish-get-rules');
-var getPlugins = require('./lib/polish-get-plugins');
-var astHelpers = require('./lib/polish-ast-helpers');
+var through     = require('through2');
+var path        = require('path');
+var chalk       = require('chalk');
+var logSymbols  = require('log-symbols');
+
+var polishcss  = require('polishcss');
+var reporter   = polishcss.reporter;
+var astHelpers = polishcss.astHelpers;
 
 var PLUGIN_NAME = 'gulp-polish';
 
-function gulpPolish (options){
-  var usePlugins = options.plugins && Array.isArray(options.plugins),
-      useFiles = options.rulesDirectory && typeof options.rulesDirectory === 'string';
-
-  if (!options || !(usePlugins || useFiles)) {
-    throw new PluginError(PLUGIN_NAME, 'No rules were specified.');
-  }
-
-  var rules = {};
-
-  if (useFiles) {
-    _.extend(rules, getRules(options.rulesDirectory));
-  }
-
-  if (usePlugins) {
-    _.extend(rules, getPlugins(options.plugins));
-  }
-
+function polish (options){
   return through.obj(function(file, enc, cb) {
-    var stream = this;
+    var contents = file.contents.toString('utf8'),
+        results;
 
-    if (!file.isBuffer() || Object.keys(rules).length === 0) {
+    if (!file.isBuffer()) {
       return cb(null, file);
     }
 
-    polish(file, rules);
+    results = polishcss(contents, file.path, { pluginsDirectory : options.pluginsDirectory, plugins : options.plugins });
+
+    file.polish = {};
+
+    if (results.length){
+      file.polish.success = false;
+      file.polish.results = results;
+    } else {
+      file.polish.success = true;
+      file.polish.results = [];
+    }
 
     return cb(null, file);
   });
 }
 
-gulpPolish.reporter   = reporter;
-gulpPolish.astHelpers = astHelpers;
+function gulpReporter (options){
+  options = options || {};
 
-module.exports = gulpPolish;
+  var results = 0;
+
+  return through.obj(function (file, enc, cb) {
+    if (!file.polish) {
+      return cb(null, file);
+    }
+
+    if (file.polish && !file.polish.success) {
+      reporter(file.path, file.polish.results);
+    }
+
+    results += file.polish.results.length;
+
+    return cb(null, file);
+  })
+  .on('end', function(){
+    if (options.reportTotal) {
+      console.log(chalk.yellow(logSymbols.warning + ' Total warnings: ' + results + '\n'));
+    }
+
+    results = 0;
+  });
+}
+
+module.exports = polish;
+module.exports.astHelpers = astHelpers;
+module.exports.reporter = gulpReporter;
