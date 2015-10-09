@@ -1,27 +1,36 @@
+var _           = require('lodash');
 var gutil       = require('gulp-util');
 var PluginError = gutil.PluginError;
-
 var through     = require('through2');
 var path        = require('path');
 var chalk       = require('chalk');
 var logSymbols  = require('log-symbols');
+var polishcss   = require('polish-css');
+var reporter    = polishcss.reporter;
+var astHelpers  = polishcss.astHelpers;
+var getPlugins  = polishcss.getPlugins;
 
-var polishcss  = require('polishcss');
-var reporter   = polishcss.reporter;
-var astHelpers = polishcss.astHelpers;
+var getConfig = require('./lib/polish-get-config');
 
 var PLUGIN_NAME = 'gulp-polish';
 
 function polish (options){
   return through.obj(function(file, enc, cb) {
     var contents = file.contents.toString('utf8'),
+        plugins,
+        config,
         results;
 
     if (!file.isBuffer() || file.contents.toString('utf8').length === 0) {
       return cb(null, file);
     }
 
-    results = polishcss(contents, file.path, { pluginsDirectory : options.pluginsDirectory, plugins : options.plugins });
+    plugins = getPlugins(options.plugins, options.pluginsDirectory);
+    config = getConfig(file, plugins);
+
+    options.ignoredPlugins = config;
+
+    results = polishcss(contents, file.path, options);
 
     file.polish = {};
 

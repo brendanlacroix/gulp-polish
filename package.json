@@ -1,6 +1,6 @@
 {
   "name": "gulp-polish",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Make your stylesheets perfect. Add an extra coat of polish.",
   "main": "index.js",
   "scripts": {
@@ -20,8 +20,9 @@
   "dependencies": {
     "chalk": "^1.1.0",
     "gulp-util": "^3.0.6",
+    "lodash": "^3.10.1",
     "log-symbols": "^1.0.2",
-    "polish-css": "^1.0.0",
+    "polish-css": "^1.0.2",
     "through2": "^2.0.0"
   },
   "devDependencies": {}
