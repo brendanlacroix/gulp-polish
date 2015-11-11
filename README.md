@@ -1,5 +1,7 @@
 # gulp-polish
 
+[![Build Status](https://travis-ci.org/brendanlacroix/gulp-polish.svg)](https://travis-ci.org/brendanlacroix/gulp-polish) [![codecov.io](https://codecov.io/github/brendanlacroix/gulp-polish/coverage.svg?branch=master)](https://codecov.io/github/brendanlacroix/gulp-polish?branch=master)
+
 gulp plugin for integrating [Polish](https://github.com/brendanlacroix/polish-css).
 
 ## Install
