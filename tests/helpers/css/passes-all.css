@@ -1,0 +1,6 @@
+.color {
+  color: red;
+}
+.something > .else {
+  font: sans;
+}

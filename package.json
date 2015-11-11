@@ -2,9 +2,9 @@
   "name": "gulp-polish",
   "version": "3.0.1",
   "description": "Make your stylesheets perfect. Add an extra coat of polish.",
-  "main": "index.js",
+  "main": "./lib/plugin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/intern-client config=tests/intern"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,20 @@
     "gulp-util": "^3.0.6",
     "lodash": "^3.10.1",
     "log-symbols": "^1.0.2",
-    "polish-css": "^1.0.2",
+    "polish-css": "^2.0.0",
     "through2": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "codecov.io": "^0.1.6",
+    "intern": "^3.0.6",
+    "polish-banned-selectors": "^1.0.0",
+    "polish-match-stylesheet-names-to-rules": "^1.0.0",
+    "polish-no-bang-important": "^1.0.0",
+    "polish-no-styling-elements": "^1.0.0",
+    "polish-no-styling-ids": "^1.0.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "vinyl-file": "^1.2.1"
+  }
 }
