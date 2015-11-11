@@ -1,3 +1,5 @@
+/* jshint expr:true */
+
 define([
   'require',
   'intern/chai!',
