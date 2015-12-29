@@ -1,10 +1,11 @@
 {
   "name": "gulp-polish",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Make your stylesheets perfect. Add an extra coat of polish.",
   "main": "./lib/plugin.js",
   "scripts": {
-    "test": "./node_modules/.bin/intern-client config=tests/intern"
+    "test": "./node_modules/.bin/intern-client config=tests/intern",
+    "changelog": "conventional-changelog -o CHANGELOG.md"
   },
   "repository": {
     "type": "git",
