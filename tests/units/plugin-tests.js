@@ -39,7 +39,7 @@ define(function (require) {
       gulpPolish.write(stylesheet);
 
       gulpPolish.once('data', deferred.callback(function(file) {
-        assert.notOk(file.polish.success);
+        assert.isFalse(file.polish.success);
         assert.lengthOf(file.polish.errors, 1);
         assert.lengthOf(file.polish.warnings, 1);
       }));

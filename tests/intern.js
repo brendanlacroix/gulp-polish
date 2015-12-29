@@ -45,7 +45,6 @@ define({
   // Non-functional test suite(s) to run in each browser
   suites: [
     'tests/units/plugin-tests',
-    'tests/units/get-config-tests',
     'tests/units/reporter-tests'
   ],
 

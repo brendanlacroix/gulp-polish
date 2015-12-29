@@ -22,7 +22,7 @@
     "gulp-util": "^3.0.6",
     "lodash": "^3.10.1",
     "log-symbols": "^1.0.2",
-    "polish-css": "^2.0.0",
+    "polish-css": "^3.0.0",
     "through2": "^2.0.0"
   },
   "devDependencies": {

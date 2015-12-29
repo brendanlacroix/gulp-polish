@@ -1,3 +1,5 @@
+/* polish-disable polish-banned-selectors=1 */
+
 .color {
   color: red;
 }
