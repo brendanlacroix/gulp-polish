@@ -1,6 +1,6 @@
 # gulp-polish
 
-[![Build Status](https://travis-ci.org/brendanlacroix/gulp-polish.svg?branch=master)](https://travis-ci.org/brendanlacroix/gulp-polish) [![codecov.io](https://codecov.io/github/brendanlacroix/gulp-polish/coverage.svg?branch=master)](https://codecov.io/github/brendanlacroix/gulp-polish?branch=master)
+[![Build Status](https://travis-ci.org/brendanlacroix/gulp-polish.svg?branch=master)](https://travis-ci.org/brendanlacroix/gulp-polish) [![codecov.io](https://codecov.io/github/brendanlacroix/gulp-polish/coverage.svg?branch=master)](https://codecov.io/github/brendanlacroix/gulp-polish?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/brendanlacroix/gulp-polish/badges/score.svg)](https://www.bithound.io/github/brendanlacroix/gulp-polish) [![bitHound Dependencies](https://www.bithound.io/github/brendanlacroix/gulp-polish/badges/dependencies.svg)](https://www.bithound.io/github/brendanlacroix/gulp-polish/master/dependencies/npm)
 
 gulp plugin for integrating [Polish](https://github.com/brendanlacroix/polish-css).
 
