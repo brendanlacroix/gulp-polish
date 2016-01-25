@@ -1,22 +1,17 @@
-<a name="5.0.0"></a>
-# 5.0.0 (2015-12-29)
+<a name="5.0.1"></a>
+## 5.0.1 (2016-01-25)
 
+
+### chore
+
+* chore: Update dependencies ([76718fb](https://github.com/brendanlacroix/gulp-polish/commit/76718fb))
+* chore: Update lodash version ([c26ace5](https://github.com/brendanlacroix/gulp-polish/commit/c26ace5))
+* chore: Update polish-css version ([3559a88](https://github.com/brendanlacroix/gulp-polish/commit/3559a88))
 
 ### docs
 
-* docs: Add Travis and codecov badges ([4369232](https://github.com/brendanlacroix/gulp-polish/commit/4369232))
+* docs: Add bitHound badges ([83b7422](https://github.com/brendanlacroix/gulp-polish/commit/83b7422))
+* docs: Always show master branch build status in README ([b9304de](https://github.com/brendanlacroix/gulp-polish/commit/b9304de))
 
-### feature
-
-* feature: Use eslint-style inline configs available in Polish 3. ([2718b30](https://github.com/brendanlacroix/gulp-polish/commit/2718b30))
-
-### refactor
-
-* refactor: Clean up jshint warnings ([d37942e](https://github.com/brendanlacroix/gulp-polish/commit/d37942e))
-
-
-### BREAKING CHANGE
-
-* - Removes nested configurations.
 
 
