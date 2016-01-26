@@ -1,6 +1,6 @@
 {
   "name": "gulp-polish",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Make your stylesheets perfect. Add an extra coat of polish.",
   "main": "./lib/plugin.js",
   "scripts": {
