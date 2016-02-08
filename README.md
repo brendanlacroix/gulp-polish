@@ -38,33 +38,21 @@ The config will inherit from its parents directories. Just create a simple JSON 
 that specifies rules to include/exclude by filename.
 
 ```
-{
-  "config": [
-    {
-      "module"   : "polish-no-styling-elements",
-      "severity" : 2 // an error
-    },
-    {
-      "module"   : "polish-no-bang-important",
-      "severity" : 1 // a warning
-    },
-    {
-      "module"    : "polish-no-banned-selectors",
-      "severity"  : 0 // ignored,
-      "selectors" : [".these", "#will", ".be", "#banned"]
-    }
-  ],
-  "fileConfig": {
-    // individual files can be configured like this
-    "_colors.scss": [
-      {
-        "module"    : "polish-use-color-variables",
-        "severity"  : 0
-      }
-    ]
+[
+  {
+    "module"   : "polish-no-styling-elements",
+    "severity" : 2 // an error
+  },
+  {
+    "module"   : "polish-no-bang-important",
+    "severity" : 1 // a warning
+  },
+  {
+    "module"    : "polish-no-banned-selectors",
+    "severity"  : 0 // ignored,
+    "selectors" : [".these", "#will", ".be", "#banned"]
   }
-}
-
+]
 ```
 
 
