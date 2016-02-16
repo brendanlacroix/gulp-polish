@@ -20,7 +20,6 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.0",
-    "gulp-util": "^3.0.6",
     "log-symbols": "^1.0.2",
     "polish-css": "^3.0.2",
     "through2": "^2.0.1"
