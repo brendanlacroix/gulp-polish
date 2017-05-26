@@ -25,7 +25,7 @@
     "through2": "^2.0.1"
   },
   "devDependencies": {
-    "chai": "^3.4.0",
+    "chai": "^4.0.0",
     "codecov.io": "^0.1.6",
     "intern": "^3.0.6",
     "polish-banned-selectors": "^1.0.0",
